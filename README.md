@@ -1,11 +1,32 @@
-# Insperity
+# Insperity (insperity)
+Insperity is a leading provider of human resources and business performance solutions for small and medium-sized businesses, including payroll, benefits, workers' compensation, and HR technology.
 
-This is a repository for tracking the APIs, SDKs, and other developer resources for Insperity.
+**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/insperity/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Contract
+- **Position:** Consuming
+- **Access:** 3rd-Party
+
+## Tags:
+
+ - HR
+
+## Timestamps
+
+- **Modified:** 2026-04-28
 
 ## APIs
 
-No APIs have been documented yet. Check back for updates.
+No public APIs have been documented yet. Contributions welcome.
 
-## Properties
+## Common Properties
 
 - [Website](https://www.insperity.com)
+
+## Maintainers
+
+**FN:** API Evangelist
+
+**Email:** info@apievangelist.com
