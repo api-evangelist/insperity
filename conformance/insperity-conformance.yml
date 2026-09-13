@@ -1,0 +1,86 @@
+generated: '2026-09-13'
+method: derived
+source: https://developer.insperity.com/developer-resources
+note: >-
+  Derived from Insperity's own Developer Resources page and its public operation inventory. No
+  OpenAPI was available to an anonymous client, so every entry below is grounded in published prose
+  or in a fetched operation list, and nothing is asserted from a spec we could not read.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      The provider states there is exactly one authentication method and it is a header API key
+      ("Authorization: APIKey <key>"). No OAuth 2.0 surface is documented and no
+      /.well-known/oauth-authorization-server was served by any host.
+  - id: oidc
+    conforms: false
+    evidence: >-
+      /.well-known/openid-configuration returned 404 on api.insperity.com and integra.insperity.com,
+      and an HTML catch-all on developer.insperity.com and passport.insperity.com (negative control
+      also 200). The customer-facing portal uses WS-Federation via passport.insperity.com, not OIDC.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors are application/json with a proprietary {resource, field, code, message,
+      documentation_url} envelope; no application/problem+json media type is documented.
+  - id: rfc8594-sunset-header
+    conforms: false
+    evidence: No Deprecation or Sunset header is documented; no deprecation policy is published.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returned no document on any Insperity host
+      (see well-known/insperity-well-known.yml).
+  - id: json-api
+    conforms: false
+    evidence: >-
+      Responses are plain JSON objects with a proprietary shape; no JSON:API media type, top-level
+      data/errors envelope or relationship objects are documented.
+  - id: odata
+    conforms: false
+    evidence: >-
+      The filter/sort syntax resembles OData ($filter operators eq/ne/gt/lt, dot-path navigation,
+      "sort=<prop> asc|desc"), but the parameters are bare "filter" and "sort" rather than $filter
+      and $orderby, no $metadata document is served, and no OData version is declared. A resemblance
+      is not a conformance and is not recorded as one.
+  - id: scim2
+    conforms: false
+    evidence: >-
+      No /scim/v2 paths, no urn:ietf:params:scim:schemas:* URNs and no SCIM ServiceProviderConfig in
+      the public operation inventory, despite this being an employee-provisioning API.
+  - id: iso8601
+    conforms: true
+    evidence: >-
+      "All time is ISO 8601 format: YYYY-MM-DDTHH:MM:SSZ" - Developer Resources, Schema section.
+  - id: rest-http-verb-semantics
+    conforms: true
+    evidence: >-
+      The provider publishes an explicit verb table binding GET/POST/PATCH/PUT/DELETE to retrieve,
+      create, partial update, replace and delete.
+  - id: https-only
+    conforms: true
+    evidence: '"All API endpoints use HTTPS and are accessed through https://api.insperity.com."'
+domain_standards:
+  - id: hr-open-standards-identifier-scheme
+    conforms: false
+    evidence: >-
+      Insperity's required write identifiers use the {schemeID, schemeAgencyID, value} triple on
+      employerIdentifier.organizationID, personLegalID and personIdentifier.personID - the identifier
+      shape HR Open Standards / HR-XML inherited from OAGIS. The provider never names HR-XML, HR Open
+      Standards, OAGIS or any version, publishes no schema, and the element names are not the
+      standard's own, so the resemblance is recorded as an observation and NOT credited as a
+      declared domain-standard conformance.
+    observation_only: true
+  - id: us-payroll-identifier-authorities
+    conforms: true
+    evidence: >-
+      personLegalID schemeAgencyID is constrained to the real issuing authorities US-SSA (SSN) and
+      US-IRS (ITIN), which is a genuine domain-specific identifier scheme declared in the contract
+      documentation rather than an invented code list.
+compliance_program:
+  published: false
+  note: >-
+    Insperity maintains a corporate Security Statement at https://www.insperity.com/security-statement/,
+    but www.insperity.com returns 403 to every non-browser client, so no certification list could be
+    fetched and verified. No Compliance pointer is emitted on an unverified page. See
+    security/insperity-trust-center.yml for what the probe actually established.

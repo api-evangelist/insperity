@@ -1,0 +1,391 @@
+generated: '2026-09-13'
+method: derived
+status: candidate
+source: api-inventory/_index.yml
+note: >-
+  NO Insperity MCP server exists. Searched the provider's developer portal, its connectors and
+  integration (Workato) sections, and the public registries; nothing was found, and POSTing
+  tools/list to api.insperity.com/mcp returned 404 while mcp.insperity.com does not resolve. The
+  tools below are a CANDIDATE derivation from Insperity's own public operation inventory
+  (/api/list/{category}) - real method+path pairs the provider publishes, not invented endpoints.
+  They carry no inputSchema: Insperity's Swagger documents are auth-gated (401), so the request
+  bodies these operations take could not be read, and none is guessed here.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: probed
+  probes:
+    - {url: 'https://api.insperity.com/mcp', method: POST, body: 'tools/list', status: 404}
+    - {url: 'https://mcp.insperity.com/mcp', method: POST, body: 'tools/list', status: 'no DNS/TLS answer'}
+server: null
+transport_note: >-
+  If Insperity ever ships a server it must carry the Authorization: APIKey credential and originate
+  from an allow-listed IP, which rules out a viewer-side remote endpoint without a proxy.
+tools:
+  - name: post_employee_onboarding_v2
+    category: onboarding
+    method: POST
+    path: /public/Employee/Onboarding/v2
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-onboarding-endpoints.json
+  - name: post_employee_billing_group_change
+    category: payroll_tax
+    method: POST
+    path: /public/Employee/BillingGroupChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-payroll-tax-endpoints.json
+  - name: post_employee_remuneration_change
+    category: payroll_tax
+    method: POST
+    path: /public/Employee/RemunerationChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-payroll-tax-endpoints.json
+  - name: get_payroll_ledger
+    category: payroll_tax
+    method: GET
+    path: /public/payroll/Ledger/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-payroll-tax-endpoints.json
+  - name: post_employee_address_change
+    category: hris
+    method: POST
+    path: /public/Employee/AddressChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_client_employee_number_change
+    category: hris
+    method: POST
+    path: /public/Employee/ClientEmployeeNumberChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_company_managed_data_change
+    category: hris
+    method: POST
+    path: /public/Employee/CompanyManagedDataChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_delivery_location_change
+    category: hris
+    method: POST
+    path: /public/Employee/DeliveryLocationChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_department_change
+    category: hris
+    method: POST
+    path: /public/Employee/DepartmentChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_email_change
+    category: hris
+    method: POST
+    path: /public/Employee/EmailChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_employment_status_change
+    category: hris
+    method: POST
+    path: /public/Employee/EmploymentStatusChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_exemption_status_change
+    category: hris
+    method: POST
+    path: /public/Employee/ExemptionStatusChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_job_title_change
+    category: hris
+    method: POST
+    path: /public/Employee/JobTitleChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_location_change
+    category: hris
+    method: POST
+    path: /public/Employee/LocationChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_phone_change
+    category: hris
+    method: POST
+    path: /public/Employee/PhoneChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_reporting_location_change
+    category: hris
+    method: POST
+    path: /public/Employee/ReportingLocationChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_supervises_others_status_change
+    category: hris
+    method: POST
+    path: /public/Employee/SupervisesOthersStatusChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_supervisor_change
+    category: hris
+    method: POST
+    path: /public/Employee/SupervisorChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: post_employee_worksite_location_change
+    category: hris
+    method: POST
+    path: /public/Employee/WorksiteLocationChange/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/Employees/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_v2
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/Employees/v2
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_communication
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesCommunication/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_company
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesCompany/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_company_managed_data
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesCompanyManagedData/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_compensation
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesCompensation/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_compensation_v2
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesCompensation/v2
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_employment
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesEmployment/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_position
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesPosition/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_pto_item
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesPto/{resourceId}/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_employees_pto
+    category: hris
+    method: GET
+    path: /public/company/{companyId}/EmployeesPto/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-hris-endpoints.json
+  - name: get_company_company_benefit_class
+    category: core
+    method: GET
+    path: /public/company/{companyId}/BenefitClass/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_billing_groups
+    category: core
+    method: GET
+    path: /public/company/{companyId}/BillingGroups/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_company_managed_data_fields
+    category: core
+    method: GET
+    path: /public/company/{companyId}/CompanyManagedDataFields/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_delivery_locations
+    category: core
+    method: GET
+    path: /public/company/{companyId}/DeliveryLocations/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_departments
+    category: core
+    method: GET
+    path: /public/company/{companyId}/Departments/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_job_categories
+    category: core
+    method: GET
+    path: /public/company/{companyId}/JobCategories/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_job_cost
+    category: core
+    method: GET
+    path: /public/company/{companyId}/JobCost/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_job_functions
+    category: core
+    method: GET
+    path: /public/company/{companyId}/JobFunctions/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_locations
+    category: core
+    method: GET
+    path: /public/company/{companyId}/Locations/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_remuneration_change_reasons
+    category: core
+    method: GET
+    path: /public/company/{companyId}/RemunerationChangeReasons/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_remuneration_type_codes
+    category: core
+    method: GET
+    path: /public/company/{companyId}/RemunerationTypeCodes/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_reporting_locations
+    category: core
+    method: GET
+    path: /public/company/{companyId}/ReportingLocations/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_workers_comp_code
+    category: core
+    method: GET
+    path: /public/company/{companyId}/WorkersCompCode/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_work_levels
+    category: core
+    method: GET
+    path: /public/company/{companyId}/WorkLevels/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+  - name: get_company_company_worksite_locations
+    category: core
+    method: GET
+    path: /public/company/{companyId}/WorksiteLocations/v1
+    base_url: https://api.insperity.com/public
+    deprecated: false
+    input_schema: null
+    source_operation: api-inventory/insperity-core-endpoints.json
+coverage:
+  tools_derived: 45
+  tools_with_input_schema: 0
+  reason_no_schema: Insperity Swagger endpoint returns 401 to anonymous clients

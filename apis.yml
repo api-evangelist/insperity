@@ -1,43 +1,188 @@
 name: Insperity
 aid: insperity
-deliveryModel:
-  model: unknown
-  open_source: false
-  commercial: false
-  callable_host: false
-  label: Delivery model not determined — needs a product licence on record
-  confidence: low
-  source:
-  - none
-  generated: '2026-08-28'
-  method: derived
 specificationVersion: '0.23'
+description: >-
+  Insperity is a professional employer organization (PEO) headquartered in Kingwood, Texas that
+  provides human resources and business performance solutions to small and medium-sized businesses,
+  including payroll processing, employee benefits, workers' compensation, HR compliance and the
+  Insperity Premier HR technology platform. Insperity Premier exposes a REST Public API at
+  https://api.insperity.com/public organized into four categories — Onboarding, Payroll & Tax, HRIS
+  and Core — covering 45 publicly listed operations that let a client's applicant tracking system,
+  HRIS or payroll application send new-hire records, submit employee change events, retrieve
+  post-payroll general ledger data, and read the company-scoped reference code lists those writes
+  must resolve against. Access is not self-service: a key is issued per customer by an Insperity
+  Integration Specialist after an API Terms of Use Agreement is signed, requests must originate from
+  allow-listed IP addresses, and the developer portal's Swagger documents require a Premier account.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
+url: https://raw.githubusercontent.com/api-evangelist/insperity/refs/heads/main/apis.yml
+created: '2026-04-28'
+modified: '2026-09-13'
+position: Producing
+tags:
+  - Fortune 1000
+  - Human Resources
+  - Payroll
+  - Benefits
+  - HRIS
+  - Onboarding
+  - Professional Employer Organization
+  - Workforce Management
+  - Employer of Record
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
+  - FN: APIs.json
+    email: info@apis.io
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Commercial SaaS API callable at api.insperity.com, entitlement of an Insperity Premier client relationship
+  confidence: medium
+  source:
+    - https://developer.insperity.com/developer-resources
+    - https://developer.insperity.com/get-started
+  generated: '2026-09-13'
+  method: searched
 accessModel:
-  pricing: unknown
-  onboarding: unknown
+  pricing: contact-sales
+  onboarding: manual
   trial: false
   try_now: false
   public: false
-  label: Unknown
-  confidence: low
-  source: []
-  generated: '2026-07-22'
-  method: derived
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
-tags:
-  - Fortune 1000
-url: 
-  https://raw.githubusercontent.com/api-evangelist/insperity/refs/heads/main/apis.yml
-modified: '2026-04-28'
-apis: []
+  label: Customer-only; key issued by an Insperity Integration Specialist behind an IP allow-list
+  confidence: high
+  source:
+    - https://developer.insperity.com/get-started
+    - https://developer.insperity.com/api/swagger/payroll_tax
+  generated: '2026-09-13'
+  method: searched
+apis:
+  - aid: insperity:insperity-onboarding-api
+    name: Insperity Onboarding API
+    description: >-
+      Use your own applicant tracking or HR application to send candidate hire information to
+      Insperity Premier Onboarding. One published operation, POST /public/Employee/Onboarding/v2,
+      which accepts a caller-owned person identifier because the person does not yet have an
+      Insperity ID.
+    humanURL: https://developer.insperity.com/categories/onboarding/public
+    baseURL: https://api.insperity.com/public
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
+    tags:
+      - Onboarding
+      - Hiring
+      - Human Resources
+    properties:
+      - type: Documentation
+        url: https://developer.insperity.com/developer-resources
+      - type: APIReference
+        url: https://developer.insperity.com/categories/onboarding/public
+  - aid: insperity:insperity-payroll-tax-api
+    name: Insperity Payroll & Tax API
+    description: >-
+      Update an employee's compensation and retrieve general ledger information post payroll. Three
+      published operations covering billing group changes, remuneration changes and the payroll
+      ledger read.
+    humanURL: https://developer.insperity.com/categories/payroll_tax/public
+    baseURL: https://api.insperity.com/public
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
+    tags:
+      - Payroll
+      - Tax
+      - Compensation
+      - General Ledger
+    properties:
+      - type: Documentation
+        url: https://developer.insperity.com/developer-resources
+      - type: APIReference
+        url: https://developer.insperity.com/categories/payroll_tax/public
+  - aid: insperity:insperity-hris-api
+    name: Insperity HRIS API
+    description: >-
+      Transfer employee information to and from Insperity Premier. Twenty-six published operations —
+      fifteen named employee change events written as POSTs (address, email, phone, department,
+      location, supervisor, job title, employment status, exemption status and more) and eleven
+      company-scoped employee collection reads covering communication, company data, compensation,
+      employment, position and PTO.
+    humanURL: https://developer.insperity.com/categories/hris/public
+    baseURL: https://api.insperity.com/public
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
+    tags:
+      - HRIS
+      - Employees
+      - Human Resources
+      - Workforce Management
+    properties:
+      - type: Documentation
+        url: https://developer.insperity.com/developer-resources
+      - type: APIReference
+        url: https://developer.insperity.com/categories/hris/public
+  - aid: insperity:insperity-core-api
+    name: Insperity Core API
+    description: >-
+      Company-scoped reference data. Some Insperity API fields require specific values as defined in
+      Insperity Premier, and the Core APIs return the list of accepted options — benefit classes,
+      billing groups, departments, job categories, job functions, locations, worksite locations,
+      work levels, workers' comp codes, remuneration change reasons and remuneration type codes.
+      Fifteen published read operations.
+    humanURL: https://developer.insperity.com/categories/core/public
+    baseURL: https://api.insperity.com/public
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/insperity.png
+    tags:
+      - Reference Data
+      - Code Lists
+      - Human Resources
+    properties:
+      - type: Documentation
+        url: https://developer.insperity.com/developer-resources
+      - type: APIReference
+        url: https://developer.insperity.com/categories/core/public
 common:
-  - type: DomainSecurity
-    url: security/insperity-domain-security.yml
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/insperity
   - type: Website
     url: https://www.insperity.com
-description: >-
-  Insperity is a leading provider of human resources and business performance solutions
-  for small and medium-sized businesses, including payroll, benefits, workers' compensation,
-  and HR technology.
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/insperity
+  - type: DeveloperPortal
+    url: https://developer.insperity.com/
+  - type: Documentation
+    url: https://developer.insperity.com/developer-resources
+  - type: APIReference
+    url: https://developer.insperity.com/categories
+  - type: GettingStarted
+    url: https://developer.insperity.com/get-started
+  - type: Support
+    url: https://developer.insperity.com/faq
+  - type: Blog
+    url: https://www.insperity.com/blog/
+  - type: PrivacyPolicy
+    url: https://www.insperity.com/privacy-policy/
+  - type: Authentication
+    url: authentication/insperity-authentication.yml
+  - type: Conventions
+    url: conventions/insperity-conventions.yml
+  - type: ErrorCatalog
+    url: errors/insperity-problem-types.yml
+  - type: RateLimits
+    url: rate-limits/insperity-rate-limits.yml
+  - type: Plans
+    url: plans/insperity-plans-pricing.yml
+  - type: Sandbox
+    url: sandbox/insperity-sandbox.yml
+  - type: Lifecycle
+    url: lifecycle/insperity-lifecycle.yml
+  - type: Conformance
+    url: conformance/insperity-conformance.yml
+  - type: DataModel
+    url: data-model/insperity-data-model.yml
+  - type: Packages
+    url: packages/insperity-packages.yml
+  - type: LLMsTxt
+    url: llms/insperity-llms.txt
+  - type: DomainSecurity
+    url: security/insperity-domain-security.yml
+x-enrichment:
+  date: '2026-09-13'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v3

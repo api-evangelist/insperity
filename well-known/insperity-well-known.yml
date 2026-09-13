@@ -1,0 +1,456 @@
+generated: '2026-09-13'
+method: probed
+source: live anonymous HTTPS probes of every host this record knows
+hit_count: 0
+note: >-
+  No Insperity host serves any /.well-known/ discovery document. Two hosts answer 200 to
+  every path including a negative control that cannot exist, so their 200s are single-page-app
+  catch-alls, not documents: developer.insperity.com returns the same 5,207-byte Angular error
+  shell and passport.insperity.com the same WS-Federation login page. No document was saved and
+  NO WellKnown or SecurityTxt pointer is emitted. api.insperity.com and integra.insperity.com
+  return honest 404s on every path. insperity.com / www.insperity.com return 403 to every
+  non-browser client (edge bot policy), so those rows are not evidence of absence.
+  apistage.insperity.com, the documented stage base host, does not answer an anonymous TLS
+  connection at all (IP allow-list).
+hosts:
+  - host: https://insperity.com
+    path_echo_control: passed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 403
+      bytes: 0
+    note: "403 to every non-browser client; edge bot policy, not evidence of absence"
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 403
+        file: null
+      - path: /.well-known/ucp.json
+        status: 403
+        file: null
+      - path: /.well-known/acp.json
+        status: 403
+        file: null
+      - path: /.well-known/apis.json
+        status: 403
+        file: null
+      - path: /apis.json
+        status: 403
+        file: null
+      - path: /apis.yml
+        status: 403
+        file: null
+      - path: /openapi.json
+        status: 403
+        file: null
+      - path: /swagger.json
+        status: 403
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+
+  - host: https://www.insperity.com
+    path_echo_control: passed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 403
+      bytes: 0
+    note: "403 to every non-browser client; edge bot policy, not evidence of absence"
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 403
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 403
+        file: null
+      - path: /.well-known/api-catalog
+        status: 403
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 403
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 403
+        file: null
+      - path: /.well-known/agent.json
+        status: 403
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 403
+        file: null
+      - path: /.well-known/ucp.json
+        status: 403
+        file: null
+      - path: /.well-known/acp.json
+        status: 403
+        file: null
+      - path: /.well-known/apis.json
+        status: 403
+        file: null
+      - path: /apis.json
+        status: 403
+        file: null
+      - path: /apis.yml
+        status: 403
+        file: null
+      - path: /openapi.json
+        status: 403
+        file: null
+      - path: /swagger.json
+        status: 403
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 403
+        file: null
+      - path: /llms.txt
+        status: 403
+        file: null
+
+  - host: https://api.insperity.com
+    path_echo_control: passed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 404
+      bytes: 0
+    note: "production API base host; honest 404 on every path"
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null
+      - path: /.well-known/ucp.json
+        status: 404
+        file: null
+      - path: /.well-known/acp.json
+        status: 404
+        file: null
+      - path: /.well-known/apis.json
+        status: 404
+        file: null
+      - path: /apis.json
+        status: 404
+        file: null
+      - path: /apis.yml
+        status: 404
+        file: null
+      - path: /openapi.json
+        status: 404
+        file: null
+      - path: /swagger.json
+        status: 404
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 404
+        file: null
+      - path: /llms.txt
+        status: 404
+        file: null
+
+  - host: https://apistage.insperity.com
+    path_echo_control: passed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: ERR
+      bytes: 0
+    note: "documented stage base host; anonymous TLS connection times out (IP allow-list)"
+    documents:
+      - path: /.well-known/security.txt
+        status: ERR
+        file: null
+      - path: /.well-known/openid-configuration
+        status: ERR
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: ERR
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: ERR
+        file: null
+      - path: /.well-known/api-catalog
+        status: ERR
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: ERR
+        file: null
+      - path: /.well-known/agent-card.json
+        status: ERR
+        file: null
+      - path: /.well-known/agent.json
+        status: ERR
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: ERR
+        file: null
+      - path: /.well-known/ucp.json
+        status: ERR
+        file: null
+      - path: /.well-known/acp.json
+        status: ERR
+        file: null
+      - path: /.well-known/apis.json
+        status: ERR
+        file: null
+      - path: /apis.json
+        status: ERR
+        file: null
+      - path: /apis.yml
+        status: ERR
+        file: null
+      - path: /openapi.json
+        status: ERR
+        file: null
+      - path: /swagger.json
+        status: ERR
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: ERR
+        file: null
+      - path: /llms.txt
+        status: ERR
+        file: null
+
+  - host: https://developer.insperity.com
+    path_echo_control: failed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 200
+      bytes: 5207
+    note: "SPA catch-all: 200 on every path INCLUDING the negative control; no documents"
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 200
+        file: null
+      - path: /.well-known/ucp.json
+        status: 200
+        file: null
+      - path: /.well-known/acp.json
+        status: 200
+        file: null
+      - path: /.well-known/apis.json
+        status: 200
+        file: null
+      - path: /apis.json
+        status: 200
+        file: null
+      - path: /apis.yml
+        status: 200
+        file: null
+      - path: /openapi.json
+        status: 200
+        file: null
+      - path: /swagger.json
+        status: 200
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 200
+        file: null
+      - path: /llms.txt
+        status: 200
+        file: null
+
+  - host: https://passport.insperity.com
+    path_echo_control: failed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 200
+      bytes: 6000
+    note: "WS-Federation login host; 200 on every path INCLUDING the negative control; no documents"
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 200
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 200
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 200
+        file: null
+      - path: /.well-known/api-catalog
+        status: 200
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 200
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 200
+        file: null
+      - path: /.well-known/agent.json
+        status: 200
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 200
+        file: null
+      - path: /.well-known/ucp.json
+        status: 200
+        file: null
+      - path: /.well-known/acp.json
+        status: 200
+        file: null
+      - path: /.well-known/apis.json
+        status: 200
+        file: null
+      - path: /apis.json
+        status: 200
+        file: null
+      - path: /apis.yml
+        status: 200
+        file: null
+      - path: /openapi.json
+        status: 200
+        file: null
+      - path: /swagger.json
+        status: 200
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 200
+        file: null
+      - path: /llms.txt
+        status: 200
+        file: null
+
+  - host: https://integra.insperity.com
+    path_echo_control: passed
+    soft_404_control:
+      path: /.well-known/insperity-negative-control-7f3ab91c.json
+      status: 404
+      bytes: 0
+    note: "Insperity Integra app host; honest 404 on every path"
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        file: null
+      - path: /.well-known/openid-configuration
+        status: 404
+        file: null
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        file: null
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        file: null
+      - path: /.well-known/api-catalog
+        status: 404
+        file: null
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        file: null
+      - path: /.well-known/agent-card.json
+        status: 404
+        file: null
+      - path: /.well-known/agent.json
+        status: 404
+        file: null
+      - path: /.well-known/aauth-resource.json
+        status: 404
+        file: null
+      - path: /.well-known/ucp.json
+        status: 404
+        file: null
+      - path: /.well-known/acp.json
+        status: 404
+        file: null
+      - path: /.well-known/apis.json
+        status: 404
+        file: null
+      - path: /apis.json
+        status: 404
+        file: null
+      - path: /apis.yml
+        status: 404
+        file: null
+      - path: /openapi.json
+        status: 404
+        file: null
+      - path: /swagger.json
+        status: 404
+        file: null
+      - path: /swagger/v1/swagger.json
+        status: 404
+        file: null
+      - path: /llms.txt
+        status: 404
+        file: null
+

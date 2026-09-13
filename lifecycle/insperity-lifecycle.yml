@@ -1,0 +1,53 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+versioning:
+  scheme: uri-path
+  required_in_every_request: true
+  current: v1
+  observed: [v1, v2]
+  docs: https://developer.insperity.com/developer-resources
+  note: >-
+    "All requests need to explicitly state the version in each request. Version is a component of API
+    URI." Two operation families have shipped a v2 alongside a still-listed v1 - the Onboarding
+    endpoint is v2-only, and HRIS lists Employees v1 + v2 and EmployeesCompensation v1 + v2. The
+    portal points callers at the API Explorer for "information about latest version".
+  api_explorer: https://developer.insperity.com/categories
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: null
+  note: >-
+    Insperity publishes no deprecation or sunset policy, and no RFC 8594 Deprecation/Sunset header is
+    documented. It does, however, carry a per-operation deprecated flag in its own public catalog
+    endpoint (/api/list/{category}), which is a real machine-readable deprecation signal even though
+    no policy accompanies it. As of 2026-09-13 every one of the 45 public operations reports
+    deprecated: false, including the v1 operations superseded by a v2.
+  machine_signal:
+    source: https://developer.insperity.com/api/list/{category}
+    field: deprecated
+    checked: '2026-09-13'
+    operations_checked: 45
+    deprecated_true: 0
+deprecated_operations: []
+credential_lifecycle:
+  api_key_expiry: annual
+  note: '"Keys expire annually." A separate production key is issued after stage testing succeeds.'
+  source: https://developer.insperity.com/get-started
+sla:
+  url: null
+  uptime_target: null
+  note: No public SLA or uptime commitment is published for the Public API.
+status_page: null
+status_page_probe:
+  - {url: 'https://status.insperity.com/', result: 'no DNS/TLS answer', checked: '2026-09-13'}
+  - {url: 'https://trust.insperity.com/', result: 'no DNS/TLS answer', checked: '2026-09-13'}
+change_log: null
+change_log_note: >-
+  No dated changelog or release-notes page was found on the developer portal; the portal's only
+  version signal is the v1/v2 path segment and the API Explorer.
+maintenance_signal:
+  note: >-
+    The published HTTP status table names 500 Internal system error as covering "Service is
+    temporarily unavailable, down, or under maintenance" - maintenance is signalled in-band as a 500
+    rather than out-of-band on a status page.

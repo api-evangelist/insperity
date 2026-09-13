@@ -1,0 +1,31 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/get-started
+plan_count: 0
+note: >-
+  Insperity publishes no plans, tiers, quotas or per-call pricing for its Public API, and no public
+  sign-up. The API is an entitlement of an existing Insperity Premier client relationship, not a
+  product with a price list: access begins by signing an API Terms of Use Agreement, supplying
+  Insperity client IDs and an IP allow-list, and having an Insperity Integration Specialist create
+  the connection and issue a key by secure email. plan_count: 0 is therefore a measurement, not a
+  gap in our search.
+plans: []
+access_model:
+  pricing: contact-sales
+  onboarding: manual
+  self_service: false
+  trial: false
+  public_signup: false
+  prerequisite: an existing Insperity Premier client relationship
+alternatives:
+  - name: Connectors
+    note: >-
+      Pre-built integrations (BambooHR, Greenhouse, JazzHR, Workable Recruiting, Zoho Recruit) for
+      customers without development resources; also gated behind the same agreement.
+    url: https://developer.insperity.com/connectors
+  - name: FileFeeds
+    note: A standard or custom Insperity report output to an SFTP location on a schedule.
+    url: https://developer.insperity.com/get-started
+evidence:
+  - {url: 'https://developer.insperity.com/get-started', status: 200, note: 'Angular route; content served in the portal bundle'}
+  - {url: 'https://developer.insperity.com/api/swagger/payroll_tax', status: 401, note: 'Swagger is customer-only'}

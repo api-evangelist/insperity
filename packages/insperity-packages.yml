@@ -1,0 +1,47 @@
+generated: '2026-09-13'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, crates.io, nuget.org, packagist.org, api.github.com,
+  https://developer.insperity.com/developer-resources
+package_count: 0
+official_package_count: 0
+note: >-
+  Insperity ships no client libraries. Every public registry was queried unauthenticated on
+  2026-09-13 and none returned an Insperity-published package, and the provider's own Developer
+  Resources page offers only raw curl examples - it names no SDK, no CLI and no code samples beyond
+  the shell. This is consistent with the access model: the API is issued per customer by an
+  Integration Specialist behind an IP allow-list, so there is no public consumer for a published SDK.
+  NO SDKs POINTER IS EMITTED.
+packages: []
+registry_searches:
+  - {registry: npm, query: insperity, endpoint: 'https://registry.npmjs.org/-/v1/search?text=insperity', results: 0}
+  - {registry: pypi, query: insperity, endpoint: 'https://pypi.org/pypi/insperity/json', status: 404}
+  - {registry: rubygems, query: insperity, endpoint: 'https://rubygems.org/api/v1/search.json?query=insperity', results: 0, note: 'only unrelated gems returned'}
+  - {registry: crates.io, query: insperity, endpoint: 'https://crates.io/api/v1/crates?q=insperity', results: 0, note: 'two unrelated crates matched on fuzzy text'}
+  - {registry: nuget, query: insperity, endpoint: 'https://azuresearch-usnc.nuget.org/query?q=insperity', results: 0}
+  - {registry: packagist, query: insperity, endpoint: 'https://packagist.org/search.json?q=insperity', results: 0}
+  - {registry: maven-central, query: insperity, note: 'no Insperity groupId; provider documents no Java SDK'}
+  - {registry: pkg.go.dev, query: insperity, note: 'no Insperity module; provider documents no Go SDK'}
+github:
+  org: https://github.com/insperity
+  status: 200
+  public_repos: 0
+  created_at: '2019-04-04'
+  ownership: unverified
+  note: >-
+    A GitHub organization named "insperity" exists but publishes zero repositories and carries no
+    display name, website or description, so it cannot be attributed to Insperity Inc. and is not
+    wired as a GitHubOrganization pointer. A third-party org handle with no content is not a company
+    GitHub presence.
+distribution_alternatives:
+  - name: Connectors
+    kind: pre-built vendor integration
+    url: https://developer.insperity.com/connectors
+    partners: [BambooHR, Greenhouse, JazzHR, Workable Recruiting, Zoho Recruit]
+    official: true
+    note: Insperity-built integrations against its own API, configured rather than installed.
+  - name: FileFeeds
+    kind: scheduled SFTP report
+    url: https://developer.insperity.com/get-started
+    official: true
+    note: 'Standard or custom Insperity report output to an SFTP location; common formats .csv and .xlsx.'

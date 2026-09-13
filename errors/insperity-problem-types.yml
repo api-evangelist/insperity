@@ -1,0 +1,88 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+docs: https://developer.insperity.com/developer-resources
+format: proprietary
+rfc9457: false
+note: >-
+  Insperity publishes a two-layer error contract on its Developer Resources page: an HTTP status-code
+  table with the common causes of each, and a named error-code registry carried inside the response
+  body. Responses are application/json, not application/problem+json, so this is NOT RFC 9457.
+  Captured from the docs because the provider's Swagger documents are auth-gated (401) and no
+  4xx/5xx response schema could be derived from a spec.
+envelope:
+  content_type: application/json
+  fields:
+    - {name: resource, description: The resource the problem is on.}
+    - {name: field, description: The field on that resource the problem is on.}
+    - {name: code, description: The error code (see error_codes below); "custom" for provider validation errors.}
+    - {name: message, description: Always present on custom errors; describes the error.}
+    - {name: documentation_url, description: Present on most custom errors; points at content that may help resolve it.}
+  note: >-
+    "All error objects have resource and field properties so that your company can tell what the
+    problem is. There is also an error code to let you know what is wrong with the field."
+http_statuses:
+  - status: 200
+    title: The request was successful
+    causes: Request was valid and processed successfully
+  - status: 400
+    title: Bad request
+    causes: >-
+      Required element missing from JSON body; datatype mismatch (e.g., string provided where an
+      integer is expected); incorrect data format. Sending invalid JSON returns 400 Bad Request.
+  - status: 401
+    title: Authentication failed
+    causes: >-
+      API key not set up correctly (mis-entered, expired, or not enabled); attempt to call an endpoint
+      not enabled for the API key; missing required employee or identifier fields in a POST request;
+      malformed JSON syntax.
+  - status: 403
+    title: Unauthorized
+    causes: Target Client ID is not enabled for the provided API key; unauthorized to see requested resource.
+  - status: 404
+    title: Resource not found
+    causes: Incorrect or malformed URL; requested resource does not exist.
+  - status: 500
+    title: Internal system error
+    causes: Service is temporarily unavailable, down, or under maintenance.
+error_codes:
+  - code: missing
+    title: Resource does not exist
+    description: This means a resource does not exist.
+  - code: missing_field
+    title: Required field not set
+    description: This means a required field on a resource has not been set.
+  - code: invalid
+    title: Field formatting invalid
+    description: >-
+      This means the formatting of a field is invalid. The documentation for that resource should be
+      able to give you more specific information.
+  - code: already_exists
+    title: Duplicate value on a unique field
+    description: >-
+      This means another resource has the same value as this field. This can happen in resources that
+      must have some unique key.
+  - code: custom
+    title: Provider validation error
+    description: >-
+      Resources may also send custom validation errors. Custom errors always have a message field and
+      most include a documentation_url field.
+validation_errors:
+  - name: non-filterable field
+    message: '<property> is a non-filterable field'
+    cause: A filter was applied to a property the endpoint does not expose as filterable.
+  - name: Invalid Sort Criterion
+    message: 'Invalid Sort Criterion: <property name>'
+    cause: A sort was applied to a property the endpoint does not expose as sortable.
+async_status_errors:
+  note: >-
+    A write is asynchronous. Beyond the synchronous HTTP status, the transaction status endpoint
+    https://api.insperity.com/public/transaction/{trackingId}/status reports Success, Failed,
+    In Progress, Authenticated or Error, with a detailsMessages[] array and per-person details[]
+    entries. A 200 on the POST therefore does not mean the change was applied.
+  statuses: [Success, Failed, In Progress, Authenticated, Error]
+security_posture:
+  note: >-
+    "Authentication requests can return either 404 Not Found or 403 Forbidden depending on the
+    situation. This is to prevent the accidental release of sensitive information to unauthorized
+    users." Callers must not treat 404 as proof a resource is absent.

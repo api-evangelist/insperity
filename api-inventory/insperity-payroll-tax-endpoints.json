@@ -1,0 +1,1 @@
+[{"method":"Post","url":"/public/Employee/BillingGroupChange/v1","deprecated":false},{"method":"Post","url":"/public/Employee/RemunerationChange/v1","deprecated":false},{"method":"Get","url":"/public/payroll/Ledger/v1","deprecated":false}]

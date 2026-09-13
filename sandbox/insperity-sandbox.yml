@@ -1,0 +1,39 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+docs: https://developer.insperity.com/get-started
+note: >-
+  Insperity runs a separate stage environment on its own base host, reached with a separate key.
+  It is not a self-service sandbox: access is arranged with an Integration Specialist and the host
+  is IP allow-listed, so an anonymous TLS connection to apistage.insperity.com does not complete.
+environments:
+  - name: Stage
+    base_url: https://apistage.insperity.com/public
+    purpose: Testing both GETs and POSTs before go-live.
+    data: >-
+      "Records in stage resemble production but sensitive information is de-identified for security."
+      A de-identified copy of production - representative but not identifiable.
+    access: >-
+      Coordinated with an Insperity Integrations Specialist; access to internal systems is restricted.
+      Onboarding or employee change results are sent on request, or via an end-to-end testing meeting.
+    probe:
+      url: https://apistage.insperity.com/.well-known/security.txt
+      result: connection timed out (host does not answer an anonymous client; IP allow-list)
+      checked: '2026-09-13'
+  - name: Production
+    base_url: https://api.insperity.com/public
+    access: >-
+      "Once approved, a new production URL/Key combination will be sent." A distinct key is issued
+      after successful stage testing; keys expire annually.
+key_separation:
+  mode: separate-environment-separate-key
+  prefixes: []
+  note: >-
+    There are no test-vs-live key prefixes to read. Separation is by base host plus a distinct
+    Integration-Specialist-issued key, which an agent cannot detect from the credential itself.
+test_values: []
+test_clocks: false
+fixture_tooling: false
+required_of_caller:
+  - Requests must use the stage environment URL when testing.
+  - Requests must contain an Insperity client ID; if the client ID is missing the request is rejected.

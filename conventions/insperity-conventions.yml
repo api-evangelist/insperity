@@ -1,0 +1,204 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+docs: https://developer.insperity.com/developer-resources
+summary: >-
+  Cross-cutting request/response semantics for the Insperity Public API, read from the provider's
+  own Developer Resources page. The API is JSON over HTTPS, versioned in the URI path, authenticated
+  with a header API key plus an IP allow-list, and asynchronous on the write side: a POST returns a
+  trackingId that the caller polls for status while an Insperity service team actions the change.
+
+authentication:
+  style: api-key-header
+  header: 'Authorization: APIKey <key>'
+  detail: authentication/insperity-authentication.yml
+
+transport:
+  scheme: https
+  content_type: application/json
+  note: >-
+    "All API endpoints use HTTPS and are accessed through https://api.insperity.com. All data are sent
+    and received as JSON. Blank fields should be omitted."
+  datetime_format: ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
+
+versioning:
+  scheme: uri-path
+  required: true
+  note: 'All requests need to explicitly state the version in each request. Version is a component of API URI.'
+  example: https://api.insperity.com/public/employee/addresschange/v1
+  observed_versions: [v1, v2]
+  detail: lifecycle/insperity-lifecycle.yml
+
+http_verbs:
+  GET: Used for retrieving resources.
+  POST: Used for creating resources.
+  PATCH: Used for updating resources with partial JSON data; resource endpoints also accept POST.
+  PUT: Used for replacing resources or collections; with no body attribute set Content-Length to zero.
+  DELETE: Used for deleting resources.
+
+parameters:
+  get: Any parameter not specified as a path segment is passed as an HTTP query-string parameter.
+  write: For POST, PATCH, PUT and DELETE, parameters not in the URL are encoded as JSON with Content-Type application/json.
+
+filtering:
+  supported: true
+  param: filter
+  syntax: 'filter=<filterable property> <comparison operator> "<value>"'
+  example_url: https://api.insperity.com/public/company/{CompanyID}/{API}/v1?filter=employmentStatus eq "HIRED"
+  operators:
+    - {op: eq, description: Equal, example: 'employmentStatus eq "HIRED"', case_sensitive: false}
+    - {op: ne, description: Not equal, example: 'employmentStatus ne "TERMINATED"', case_sensitive: false}
+    - {op: gt, description: Greater than, example: 'changeDate gt "2020-09-21 14:45:26"'}
+    - {op: lt, description: Less than, example: 'changeDate lt "2020-09-21 14:45:26"'}
+    - {op: contains, description: The value contains the provided filter value, example: 'position.jobCategory contains "Supervisor"', case_sensitive: true}
+    - {op: startswith, description: The value starts with the provided filter value, example: 'position.jobCategory startswith "Sales"', case_sensitive: true}
+    - {op: endswith, description: The value ends with the provided filter value, example: 'position.jobCategory endswith "Director"', case_sensitive: true}
+  conjunctions: [and, or]
+  compound: >-
+    Parentheses group conditions, e.g. filter=<prop> eq null or (<prop> ne null and <prop> ne "<value>").
+  dot_notation: >-
+    Properties on a sub-object are addressed with dot notation, e.g. position.jobCategory.
+  error_on_unsupported: '"<property> is a non-filterable field"'
+
+sorting:
+  supported: true
+  param: sort
+  syntax: 'sort=<sortable property> asc|desc'
+  default_direction: asc
+  error_on_unsupported: 'Invalid Sort Criterion: <property name>'
+
+pagination:
+  style: none-documented
+  note: >-
+    The Developer Resources page documents filtering and sorting but publishes no pagination contract
+    (no page/limit/offset/cursor parameters and no next-link response field). Recorded as an honest gap,
+    not an assertion that collections are unpaged.
+
+field_expansion:
+  supported: null
+  note: Not documented.
+
+metadata:
+  supported: false
+  note: >-
+    No free-form metadata bag is documented. Client-defined identity is instead carried through the
+    identifier scheme below.
+
+identifiers:
+  pattern: 'scheme triple: {schemeID, schemeAgencyID, value}'
+  note: >-
+    Every write carries typed identifiers rather than bare ids. This is the shape an agent must get
+    right or the request 401s.
+  parents:
+    - element: employerIdentifier.organizationID
+      schemeID: InsperityCompanyID
+      schemeAgencyID: Insperity
+      value: the Insperity client ID issued to the caller
+      applies_to: all Insperity API calls
+    - element: personLegalID
+      schemeID: [SocialSecurityNumber, ITIN]
+      schemeAgencyID: [US-SSA, US-IRS]
+      value: the person's SSN or ITIN
+    - element: personIdentifier.personID
+      schemeID: InsperityPersonID
+      schemeAgencyID: Insperity
+      value: the Insperity employee number
+      applies_to: all APIs except Onboarding, where no Insperity ID exists yet
+    - element: personIdentifier.personID (caller-owned)
+      schemeID: '<CompanyName>PersonID'
+      schemeAgencyID: '<CompanyName>'
+      value: the person's unique ID in the caller's system
+      applies_to: Onboarding only
+
+request_tracing:
+  request_id_header: null
+  tracking_id:
+    field: trackingId
+    returned_in: response body of a write
+    status_endpoint: https://api.insperity.com/public/transaction/{trackingId}/status
+    statuses: [Success, Failed, In Progress, Authenticated, Error]
+    note: >-
+      This is the request-tracing mechanism. A write is accepted for processing and the caller polls
+      the transaction endpoint; the response also carries dateReceived, primaryStatus, dateStatused,
+      detailsMessages[] and a details[] array of per-person {personId, event, status, statusDate}.
+
+error_envelope:
+  format: proprietary
+  rfc9457: false
+  fields: [message, documentation_url, resource, field, code]
+  detail: errors/insperity-problem-types.yml
+
+rate_limit_signaling:
+  headers: []
+  note: >-
+    The provider states no rate limits are enforced, and publishes no RateLimit-* / Retry-After
+    response headers.
+  detail: rate-limits/insperity-rate-limits.yml
+
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  note: >-
+    Insperity documents no idempotency key, no replay window, and no de-duplication contract on any
+    write. The Developer Resources page instead warns that "high frequency/redundant POST entries may
+    negatively impact their review and action timelines", which is the opposite of a replay guarantee:
+    a repeated POST is a second real change request to a human service team. The one de-duplication
+    behaviour the provider does describe is product-specific and partial - re-sending a hire for an
+    already-hired employee either merges into the untouched Insperity priming record or is silently
+    ignored if that record has been edited (Connectors FAQ). An agent must treat every write here as
+    non-idempotent and guard replay on its own side.
+  evidence:
+    - https://developer.insperity.com/developer-resources
+    - https://developer.insperity.com/connectors
+
+dry_run_mode:
+  supported: false
+  coverage: none
+  note: >-
+    No dry-run, validate-only or preview parameter is documented. The nearest equivalent is the
+    separate stage environment at https://apistage.insperity.com/public, which is a different base
+    URL against de-identified data rather than a no-op mode on the production surface.
+  detail: sandbox/insperity-sandbox.yml
+
+reversibility:
+  grade: none
+  coverage: none
+  note: >-
+    Insperity publishes no reversal operation and no reversal window. All 30 write operations in the
+    public inventory are POST change events (AddressChange, RemunerationChange, EmploymentStatusChange,
+    Onboarding, ...); there is no cancel, void, reverse, undo, rollback or restore endpoint, and the
+    HTTP verb table lists DELETE as a generic verb without naming a single endpoint that accepts it.
+    A change is corrected by submitting another change, or by contacting the Insperity service team
+    out of band. NO WINDOW IS STATED ANYWHERE AND NONE IS ASSERTED HERE.
+  write_surface:
+    write_operations: 30
+    source: api-inventory/_index.yml
+  reversal_operations: []
+  windows: []
+  out_of_band:
+    - channel: Insperity Integration Specialist
+      note: >-
+        The Connectors FAQ directs customers to email integrationspecialists@insperity.com to pause or
+        change an integration. This is a human channel, not an API affordance, and is recorded as such.
+      source: https://developer.insperity.com/connectors
+  evidence:
+    - https://developer.insperity.com/developer-resources
+    - https://developer.insperity.com/api/list/hris
+
+character_limits:
+  note: >-
+    The provider publishes a per-field maximum-length reference table covering Address, Communication,
+    Company, Compensation, Emergency Contact, Employee, Employment and Position field groups. Captured
+    in data-model/insperity-data-model.yml.
+  source: https://developer.insperity.com/developer-resources
+
+cross_links:
+  authentication: authentication/insperity-authentication.yml
+  errors: errors/insperity-problem-types.yml
+  lifecycle: lifecycle/insperity-lifecycle.yml
+  rate_limits: rate-limits/insperity-rate-limits.yml
+  sandbox: sandbox/insperity-sandbox.yml
+  data_model: data-model/insperity-data-model.yml

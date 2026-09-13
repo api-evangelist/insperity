@@ -1,0 +1,168 @@
+generated: '2026-09-13'
+method: derived
+source: >-
+  api-inventory/_index.yml (Insperity's own public operation inventory) and
+  https://developer.insperity.com/developer-resources (field reference and character-limit tables)
+note: >-
+  Derived, not harvested. Insperity's Swagger documents are auth-gated (401), so there were no
+  component schemas or $refs to walk. This graph is reconstructed from two things the provider does
+  publish: the 45 operation paths in its public catalog endpoint, and the field-group reference
+  tables (valid values + maximum lengths) on the Developer Resources page. Field groups below are
+  exactly the provider's own table headings; relationships are inferred from path shape and the
+  identifier scheme, and are marked with the confidence that inference earns.
+root:
+  entity: Company
+  identifier:
+    scheme: InsperityCompanyID
+    agency: Insperity
+    path_parameter: '{companyId}'
+  note: >-
+    Every collection read is rooted at a company - /public/company/{companyId}/... - and every write
+    carries employerIdentifier.organizationID. The tenant is therefore explicit in both directions.
+entities:
+  - name: Company
+    id_scheme: InsperityCompanyID
+    read_operations: 15
+    note: The Core category is entirely company-scoped reference data.
+    fields:
+      - {name: Name, max_length: 65}
+  - name: Employee
+    id_scheme: InsperityPersonID
+    alternate_id: 'caller-owned "<CompanyName>PersonID" (Onboarding only)'
+    legal_id: 'personLegalID with schemeID SocialSecurityNumber or ITIN (agency US-SSA or US-IRS)'
+    fields:
+      - {name: BirthDate, max_length: 10}
+      - {name: ChangeDate, max_length: 19}
+      - {name: CompanyId, max_length: 10}
+      - {name: FamilyName, max_length: 30}
+      - {name: GenderCode, max_length: 30, values: [Male, Female, Unknown]}
+      - {name: GivenName, max_length: 20}
+      - {name: MiddleName, max_length: 20}
+      - {name: PersonId, max_length: 10}
+      - {name: PreferredName, max_length: 20}
+      - {name: Salutation, max_length: 5}
+      - {name: ClientEmployeeNumber, max_length: 10}
+  - name: Address
+    belongs_to: Employee
+    note: >-
+      Supplied either as a typed object (HomeAddress, WorkAddress) or as an Address object with a
+      UseCode property.
+    fields:
+      - {name: AddressLine1, max_length: 60}
+      - {name: AddressLine2, max_length: 60}
+      - {name: City, max_length: 22}
+      - {name: State, max_length: 2}
+      - {name: County, max_length: 30}
+      - {name: Zip, max_length: 11}
+      - {name: UseCode, values: [Home, Work, Reporting, Delivery]}
+  - name: Communication
+    belongs_to: Employee
+    fields:
+      - {name: Fax, max_length: 15}
+      - {name: Mobile, max_length: 15}
+      - {name: Phone, max_length: 15}
+      - {name: WorkEmail, max_length: 50}
+      - {name: HomeEmail, max_length: 50}
+  - name: Compensation
+    belongs_to: Employee
+    fields:
+      - {name: AnnualSalary, type: 'Decimal(19,6)'}
+      - {name: PayRate, type: 'Decimal(19,6)'}
+      - {name: ChangeDate, max_length: 19}
+      - {name: EffectiveDate, max_length: 30}
+      - {name: WageType, max_length: 6, values: [Salary, Hourly]}
+  - name: Employment
+    belongs_to: Employee
+    fields:
+      - {name: Status, max_length: 65, values: [Hired, Terminated, Rehired, "Worker's Comp", FMLA, 'L.O.A.']}
+      - {name: StatusReason, max_length: 40, note: 'Supplemental to Status; HIRED does not require a reason.'}
+      - {name: Classification, max_length: 65, values: [FullTime, PartTime, Seasonal], note: 'also called workLevelCode'}
+      - {name: ClassificationDate, max_length: 10}
+      - {name: ClientOriginalHireDate, max_length: 10}
+      - {name: InsperityHireDate, max_length: 10}
+      - {name: DefaultHoursPerWeek, max_length: 2}
+      - {name: EndDate, max_length: 10}
+      - {name: TermDate, max_length: 10}
+      - {name: ChangeDate, max_length: 19}
+      - {name: WageType, max_length: 10}
+      - {name: ExemptionStatus, values: [Exempt, Nonexempt]}
+  - name: Position
+    belongs_to: Employee
+    fields:
+      - {name: JobTitle, max_length: 65}
+      - {name: JobCategory, max_length: 65}
+      - {name: JobCategoryId, max_length: 10}
+      - {name: JobFunction, max_length: 65}
+      - {name: Department, max_length: 80}
+      - {name: DepartmentId, max_length: 10}
+      - {name: Location, max_length: 80}
+      - {name: LocationId, max_length: 10}
+      - {name: BillingGroupDescription, max_length: 100}
+      - {name: BillingGroupId, max_length: 10}
+      - {name: PayrollFrequency, max_length: 15, values: [Weekly, BiMonthly, SemiMonthly, Monthly]}
+      - {name: SupervisorId, max_length: 10}
+      - {name: ChangeDate, max_length: 19}
+  - name: EmergencyContact
+    belongs_to: Employee
+    fields:
+      - {name: FirstName, max_length: 20}
+      - {name: LastName, max_length: 30}
+      - {name: Relationship, max_length: 25}
+      - {name: HomePhone, max_length: 15}
+      - {name: WorkPhone, max_length: 15}
+  - name: PTO
+    belongs_to: Employee
+    read_operations: ['/public/company/{companyId}/EmployeesPto/v1', '/public/company/{companyId}/EmployeesPto/{resourceId}/v1']
+  - name: PayrollLedger
+    belongs_to: Company
+    read_operations: ['/public/payroll/Ledger/v1']
+    note: General ledger information retrieved post payroll.
+  - name: Transaction
+    note: >-
+      The async receipt for every write. Carries trackingId, dateReceived, primaryStatus,
+      dateStatused, detailsMessages[] and details[] of {personId, event, status, statusDate}.
+    read_operations: ['/public/transaction/{trackingId}/status']
+reference_collections:
+  note: >-
+    The Core category exists because "Some API fields require specific values as defined in Insperity
+    Premier. Use Core APIs to return a list of accepted options." These are the company-scoped code
+    lists a write must resolve against first.
+  collections:
+    - BenefitClass
+    - BillingGroups
+    - CompanyManagedDataFields
+    - DeliveryLocations
+    - Departments
+    - JobCategories
+    - JobCost
+    - JobFunctions
+    - Locations
+    - RemunerationChangeReasons
+    - RemunerationTypeCodes
+    - ReportingLocations
+    - WorkersCompCode
+    - WorkLevels
+    - WorksiteLocations
+relationships:
+  - {from: Company, to: Employee, type: has_many, via: 'path /public/company/{companyId}/Employees/v1', confidence: high}
+  - {from: Employee, to: Address, type: has_many, via: 'UseCode', confidence: high}
+  - {from: Employee, to: Communication, type: has_one, via: 'EmployeesCommunication collection', confidence: high}
+  - {from: Employee, to: Compensation, type: has_many, via: 'EmployeesCompensation collection, ChangeDate', confidence: high}
+  - {from: Employee, to: Employment, type: has_one, via: 'EmployeesEmployment collection', confidence: high}
+  - {from: Employee, to: Position, type: has_one, via: 'EmployeesPosition collection', confidence: high}
+  - {from: Employee, to: PTO, type: has_many, via: 'EmployeesPto collection', confidence: high}
+  - {from: Employee, to: Employee, type: belongs_to, via: SupervisorId, confidence: medium, note: 'SupervisorChange is a documented write; the reporting edge is inferred from the field, not from a schema.'}
+  - {from: Position, to: Department, type: belongs_to, via: DepartmentId, confidence: medium}
+  - {from: Position, to: Location, type: belongs_to, via: LocationId, confidence: medium}
+  - {from: Position, to: JobCategory, type: belongs_to, via: JobCategoryId, confidence: medium}
+  - {from: Position, to: BillingGroup, type: belongs_to, via: BillingGroupId, confidence: medium}
+  - {from: Company, to: 'Core reference collections', type: has_many, via: 'path /public/company/{companyId}/<collection>/v1', confidence: high}
+  - {from: Transaction, to: Employee, type: has_many, via: 'details[].personId', confidence: high}
+write_model:
+  shape: event
+  note: >-
+    Writes are not resource mutations but named change events - AddressChange, EmailChange,
+    DepartmentChange, SupervisorChange, RemunerationChange, EmploymentStatusChange and so on - each
+    POSTed to its own endpoint and each queued for an Insperity service team. There is no PUT or
+    PATCH on an employee resource in the public inventory.
+  change_events: 30

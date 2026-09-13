@@ -1,0 +1,25 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+docs: https://developer.insperity.com/developer-resources
+limit_count: 0
+enforced: false
+note: >-
+  Insperity publishes an explicit Rate Limits section that states no limits are enforced. This is a
+  documented zero, not an undocumented gap: "The Insperity Public API does not enforce Rate Limits on
+  any of its endpoints currently, however POST endpoints funnel data through your Insperity service
+  team for action and validation. While no limits are enforced, high frequency/redundant POST entries
+  may negatively impact their review and action timelines."
+limits: []
+response_headers: []
+exhaustion_status: null
+throttling_advice:
+  scope: write operations
+  guidance: >-
+    High-frequency or redundant POST entries degrade the Insperity service team's review and action
+    timelines. Writes are queued to humans, so the practical limit is social rather than technical.
+  source: https://developer.insperity.com/developer-resources
+agent_note: >-
+  An agent gets no runtime backpressure signal here - no RateLimit-* headers, no Retry-After, no 429.
+  Combined with the absence of any idempotency key (conventions/insperity-conventions.yml), a retry
+  loop against this API creates duplicate change requests for a human team to reconcile.

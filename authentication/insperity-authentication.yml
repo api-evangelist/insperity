@@ -1,0 +1,56 @@
+generated: '2026-09-13'
+method: searched
+source: https://developer.insperity.com/developer-resources
+docs: https://developer.insperity.com/developer-resources
+note: >-
+  Insperity publishes no OpenAPI to an anonymous client (the portal's Swagger endpoint,
+  /api/swagger/{category}, returns 401), so this profile is read from the provider's own
+  Developer Resources page rather than derived from a securityScheme block.
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  network_controls: [ip-allowlist]
+schemes:
+  - name: InsperityAPIKey
+    type: apiKey
+    in: header
+    parameter_name: Authorization
+    value_format: 'APIKey <YourApiKey>'
+    example_request: "curl -H 'Authorization: APIKey YourApiKey' 'https://api.insperity.com/public/employee/addresschange/v1'"
+    sources: [https://developer.insperity.com/developer-resources]
+    description: >-
+      The provider states "Currently there is only one way to authenticate through Insperity API."
+      The key is issued by an Insperity Integration Specialist over secure email after an API Terms of
+      Use Agreement is signed; it is not self-service.
+issuance:
+  self_service: false
+  process: >-
+    Sign the API Terms of Use Agreement, provide Insperity client IDs, provide the IP addresses or
+    IP range to be allow-listed, then an Insperity Integration Specialist creates the API Connection
+    and sends the key by secure email. A separate production key/URL pair is issued after stage testing.
+  contact: https://developer.insperity.com/get-started
+rotation:
+  expiry: annual
+  evidence: 'Get Started page: "Keys expire annually."'
+  source: https://developer.insperity.com/get-started
+network_controls:
+  ip_allowlisting:
+    required: true
+    evidence: >-
+      "Due to the sensitive nature of the data, we only allow connections from approved IP addresses.
+      A list of IP addresses or ranges must be provided to your Integration Specialist."
+    source: https://developer.insperity.com/get-started
+tenancy:
+  client_id_required: true
+  note: >-
+    Every request must carry an Insperity client ID; a request missing it is rejected, and a target
+    client ID not enabled for the presented key returns 403.
+auth_failure_semantics:
+  note: >-
+    "Authentication requests can return either 404 Not Found or 403 Forbidden depending on the
+    situation. This is to prevent the accidental release of sensitive information to unauthorized users."
+  statuses: [401, 403, 404]
+oauth: false
+openid_connect: false
+mutual_tls: false

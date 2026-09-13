@@ -1,0 +1,49 @@
+generated: '2026-09-13'
+method: probed
+source: https://developer.insperity.com/api/list/{category}
+note: >-
+  Verbatim operation inventories returned by the Insperity developer portal's own
+  unauthenticated catalog endpoint, /api/list/{category}. This is NOT an OpenAPI
+  definition and nothing in this repository claims it is: Insperity's Swagger
+  documents are served from https://developer.insperity.com/api/swagger/{category}
+  and that endpoint returns 401 Unauthorized to an anonymous client (observed
+  2026-09-13 on /api/swagger/payroll_tax). What IS public is this method+path+deprecated
+  list, saved here verbatim as the evidence behind the derived artifacts in this repo.
+x-evidence:
+  fetched: '2026-09-13'
+  swagger_endpoint: https://developer.insperity.com/api/swagger/payroll_tax
+  swagger_status: 401
+  swagger_body: Unauthorized
+categories:
+  - key: onboarding
+    name: Onboarding
+    source: https://developer.insperity.com/api/list/onboarding
+    http_status: 200
+    file: insperity-onboarding-endpoints.json
+    operation_count: 1
+    deprecated_count: 0
+  - key: payroll_tax
+    name: Payroll & Tax
+    source: https://developer.insperity.com/api/list/payroll_tax
+    http_status: 200
+    file: insperity-payroll-tax-endpoints.json
+    operation_count: 3
+    deprecated_count: 0
+  - key: hris
+    name: HRIS
+    source: https://developer.insperity.com/api/list/hris
+    http_status: 200
+    file: insperity-hris-endpoints.json
+    operation_count: 26
+    deprecated_count: 0
+  - key: core
+    name: Core
+    source: https://developer.insperity.com/api/list/core
+    http_status: 200
+    file: insperity-core-endpoints.json
+    operation_count: 15
+    deprecated_count: 0
+totals:
+  categories: 4
+  operations: 45
+  deprecated: 0
