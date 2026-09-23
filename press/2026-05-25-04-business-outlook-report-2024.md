@@ -1,7 +1,9 @@
 ---
 title: Business Outlook Report 2024
 url: https://www.insperity.com/resources/guide/business-outlook-report/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"Insperity" press release artificial intelligence'
 position: 4
 source: serpapi-google
