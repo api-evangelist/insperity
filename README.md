@@ -1,4 +1,4 @@
-# Insperity (insperity)
+# Insperity
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,34 +64,111 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Insperity is a leading provider of human resources and business performance solutions for small and medium-sized businesses, including payroll, benefits, workers' compensation, and HR technology.
+Insperity is a professional employer organization (PEO) headquartered in Kingwood, Texas that provides human resources and business performance solutions to small and medium-sized businesses, including payroll processing, employee benefits, workers' compensation, HR compliance and the Insperity Premier HR technology platform. Insperity Premier exposes a REST Public API at https://api.insperity.com/public organized into four categories — Onboarding, Payroll & Tax, HRIS and Core — covering 45 publicly listed operations that let a client's applicant tracking system, HRIS or payroll application send new-hire records, submit employee change events, retrieve post-payroll general ledger data, and read the company-scoped reference code lists those writes must resolve against. Access is not self-service: a key is issued per customer by an Insperity Integration Specialist after an API Terms of Use Agreement is signed, requests must originate from allow-listed IP addresses, and the developer portal's Swagger documents require a Premier account.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/insperity/refs/heads/main/apis.yml)
+**Areas:** Fortune 1000 · Human Resources · Payroll · Benefits · HRIS · Onboarding · Professional Employer Organization · Workforce Management · Employer of Record · Employee Benefits
 
-## Scope
+## Insperity on APIs.io
 
-- **Type:** Contract
-- **Position:** Consuming
-- **Access:** 3rd-Party
+Everything profiled for Insperity is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/insperity/](https://apis.io/providers/insperity/)** — or go straight to one of the APIs or properties below.
 
-## Tags:
+### APIs (4)
 
- - HR
+- [Insperity Onboarding API](https://apis.io/apis/insperity/insperity-onboarding-api/) — Use your own applicant tracking or HR application to send candidate hire information to Insperity Premier Onboarding. One published operation, POST…
+- [Insperity Payroll & Tax API](https://apis.io/apis/insperity/insperity-payroll-tax-api/) — Update an employee's compensation and retrieve general ledger information post payroll. Three published operations covering billing group changes,…
+- [Insperity HRIS API](https://apis.io/apis/insperity/insperity-hris-api/) — Transfer employee information to and from Insperity Premier. Twenty-six published operations — fifteen named employee change events written as POSTs…
+- [Insperity Core API](https://apis.io/apis/insperity/insperity-core-api/) — Company-scoped reference data. Some Insperity API fields require specific values as defined in Insperity Premier, and the Core APIs return the list of…
 
-## Timestamps
+### Published properties
 
-- **Modified:** 2026-04-28
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-No public APIs have been documented yet. Contributions welcome.
+Model Context Protocol servers that expose the API to agents.
 
-## Common Properties
+- [insperity-mcp.yml](https://apis.io/servers/insperity/insperity-mcp-yml/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Insperity Authentication](https://apis.io/security/insperity/insperity-authentication/)
+- [Insperity Domain Security](https://apis.io/security/insperity/insperity-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Insperity Plans Pricing](https://apis.io/plans/insperity/insperity-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Insperity Rate Limits](https://apis.io/rate-limits/insperity/insperity-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://www.insperity.com)
+- [Documentation](https://developer.insperity.com/developer-resources)
+- [Getting started](https://developer.insperity.com/get-started)
+- [API reference](https://developer.insperity.com/categories)
+- [Support](https://developer.insperity.com/faq)
+- [Blog](https://www.insperity.com/blog/)
+- [Privacy policy](https://www.insperity.com/privacy-policy/)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
+**Kin Score 14.3** — emerging · rubric 0.24.0 · scored 2026-10-17
 
-**Email:** info@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 0.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 21.4 |
+| Access clarity | 10.5 |
+
+**Agent readiness 10.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | yes |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Employment & Payroll
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/insperity/](https://apis.io/providers/insperity/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Insperity: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/insperity/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
